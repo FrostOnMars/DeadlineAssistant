@@ -7,7 +7,7 @@ class Program
         
         ConsoleStatements.PostOpeningText();
 
-        var myModel = TaskCompletionDataBuilder
+        var myModel = TaskDataBuilder
             .Create("TestTask", 1, 14, 5)
             .AddAverageDays()
             .AddStandardDeviation()
@@ -15,7 +15,7 @@ class Program
 
         Console.WriteLine(myModel.ToString());
 
-        var mySecondModel = TaskCompletionDataBuilder
+        var mySecondModel = TaskDataBuilder
             .Create("TestSecondTask", 5, 22, 8)
             .AddAverageDays()
             .AddStandardDeviation()

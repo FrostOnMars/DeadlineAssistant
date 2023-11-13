@@ -4,40 +4,45 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace ConsoleAssistant
 {
-    public class TaskCompletionDataBuilder
+    public class TaskDataBuilder
     {
-        private readonly TaskCompletionData _taskCompletionData;
+        private readonly TaskData _taskData;
 
-        private TaskCompletionDataBuilder(string name, double optimistic, double pessimistic, double expected)
+        private TaskDataBuilder(string name, double optimistic, double pessimistic, double expected)
         {
-            _taskCompletionData = new TaskCompletionData(name, optimistic, pessimistic, expected);
+            _taskData = new TaskData(name, optimistic, pessimistic, expected);
         }
 
-        public static TaskCompletionDataBuilder Create(string name, double optimistic, double pessimistic, double expected)
+        public TaskDataBuilder()
+        {
+        }
+
+        public static TaskDataBuilder Create(string name, double optimistic, double pessimistic, double expected)
         {
             if (pessimistic < 0 || optimistic < 0 || expected < 0)
             {
                 throw new ArgumentException("All values must be greater than 0.");
             }
-            return new TaskCompletionDataBuilder(name, optimistic, pessimistic, expected);
+            return new TaskDataBuilder(name, optimistic, pessimistic, expected);
         }
 
-        public TaskCompletionDataBuilder AddStandardDeviation()
+        public TaskDataBuilder AddStandardDeviation()
         {
             // Assuming you've got some calculation here to determine the standard deviation...
-            _taskCompletionData.ResultStandardDeviation = Calculate.StandardDeviation(_taskCompletionData.Pessimistic, _taskCompletionData.Optimistic);
+            _taskData.ResultStandardDeviation = Calculator.StandardDeviation(_taskData.Pessimistic, _taskData.Optimistic);
             return this;
         }
 
-        public TaskCompletionDataBuilder AddAverageDays()
+        public TaskDataBuilder AddAverageDays()
         {
             // Assuming you've got some calculation here to determine the average days...
-            _taskCompletionData.ResultAverageDays =
-                Calculate.ProbabilityDistribution(_taskCompletionData.Pessimistic, _taskCompletionData.Optimistic, _taskCompletionData.MostLikely); 
+            _taskData.ResultAverageDays =
+                Calculator.ProbabilityDistribution(_taskData.Pessimistic, _taskData.Optimistic, _taskData.MostLikely); 
             return this;
         }
 
@@ -48,10 +53,10 @@ namespace ConsoleAssistant
         //    return this;
         //}
 
-        public TaskCompletionData Build()
+        public TaskData Build()
         {
             // here you'll add the validation logic or whatever you need for the base model.
-            return _taskCompletionData;
+            return _taskData;
         }
     }
 

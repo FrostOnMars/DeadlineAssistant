@@ -37,8 +37,8 @@
                var mostLikely = Convert.ToInt32(inputArray[1]);
                var pessimistic = Convert.ToInt32(inputArray[2]);
 
-               double x = Calculate.ProbabilityDistribution(optimistic, mostLikely, pessimistic);
-               double y = -1*(Calculate.StandardDeviation(optimistic, pessimistic));
+               double x = Calculator.ProbabilityDistribution(DateRange.longestDayTotal, pessimistic);
+               double y = -1*(Calculator.StandardDeviation(optimistic, pessimistic));
 
                outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
            }
