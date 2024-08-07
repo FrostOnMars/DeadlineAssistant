@@ -13,4 +13,4 @@ WHAT IS THIS PROGRAM?
 
 THIS PROGRAM IS *NOT*
 - a paid application
-- I am working on this between day jobs and family responsibilities. Expect new updates to follow the release schedule of scurrilous author/villain Patrick Rothfuss and his *Kingkiller Chronicles.*
+- I am working on this between day jobs and family responsibilities. Expect new updates to follow the release schedule of scurrilous author/villain Patrick Rothfuss and the next installment of the *Kingkiller Chronicles.*
