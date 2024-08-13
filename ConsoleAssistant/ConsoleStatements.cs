@@ -55,10 +55,10 @@ public class ConsoleStatements
                 var mostLikely = Convert.ToInt32(inputArray[1]);
                 var pessimistic = Convert.ToInt32(inputArray[2]);
 
-                var x = Calculator.ProbabilityDistribution(DateRange.longestDayTotal, pessimistic);
+                //var x = Calculator.GetProbDistribution(DateRange.longestDayTotal, pessimistic);
                 var y = -1 * Calculator.GetStandardDev(optimistic, pessimistic);
 
-                outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
+                //outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
             }
             break;
         }

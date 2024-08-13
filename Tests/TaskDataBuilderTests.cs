@@ -18,36 +18,82 @@ internal class TaskDataBuilderTests
     private TaskData _taskData;
 
     [Test]
-    public void AddStandardDeviation_CallsOnCalculator_ReturnsStandardDeviation()
+    public void Create_ValidInputs_ShouldReturnTaskDataBuilderInstance()
     {
         // Arrange
-        var builder = new TaskDataBuilder();
-        _taskData.Pessimistic = 1;
-        _taskData.Optimistic = 10;
-
-        //Need to add overloads for _builder in TaskDataBuilder class
+        var name = "TestTask";
+        var optimistic = 5;
+        var pessimistic = 10;
+        var nominal = 7;
 
         // Act
-        _builder.AddStandardDeviation();
+        var builder = TaskDataBuilder.Create(name, optimistic, pessimistic, nominal);
 
         // Assert
-        Assert.AreEqual(Calculator.GetStandardDev(_taskData.Pessimistic, _taskData.Optimistic),
-            _taskData.ResultStandardDeviation);
+        Assert.IsNotNull(builder);
+    }
+    [Test]
+    public void Create_NegativeInputs_ShouldThrowArgumentException()
+    {
+        // Arrange
+        string name = "TestTask";
+        double optimistic = -5;
+        double pessimistic = 10;
+        double nominal = 7;
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            TaskDataBuilder.Create(name, optimistic, pessimistic, nominal));
+    }
+    [Test]
+    public void AddAverageDays_ShouldCalculateAndSetResultCompletionTimeline()
+    {
+        // Arrange
+        var builder = TaskDataBuilder.Create("TestTask", 5, 10, 7);
+
+        // Act
+        builder.AddAverageDays();
+        var taskData = builder.Build();
+
+        // Assert
+        Assert.AreEqual(7, taskData.ResultCompletionTimeline); // Assuming the calculator returns the average for the example
+    }
+    [Test]
+    public void AddStandardDeviation_ShouldCalculateAndSetResultStandardDeviation()
+    {
+        // Arrange
+        var builder = TaskDataBuilder.Create("TestTask", 5, 10, 7);
+
+        // Act
+        builder.AddStandardDeviation();
+        var taskData = builder.Build();
+
+        // Assert
+        Assert.AreEqual(0.8333, taskData.ResultStandardDeviation, 0.0001); // Assuming (10 - 5) / 6 = 0.8333
+    }
+    [Test]
+    public void Build_ShouldReturnTaskDataInstanceWithCorrectValues()
+    {
+        // Arrange
+        string name = "TestTask";
+        double optimistic = 5;
+        double pessimistic = 10;
+        double nominal = 7;
+
+        var builder = TaskDataBuilder.Create(name, optimistic, pessimistic, nominal)
+            .AddAverageDays()
+            .AddStandardDeviation();
+
+        // Act
+        var taskData = builder.Build();
+
+        // Assert
+        Assert.AreEqual(name, taskData.Name);
+        Assert.AreEqual(optimistic, taskData.Optimistic);
+        Assert.AreEqual(pessimistic, taskData.Pessimistic);
+        Assert.AreEqual(nominal, taskData.Nominal);
+        Assert.AreEqual(7, taskData.ResultCompletionTimeline); // Example value
+        Assert.AreEqual(0.8333, taskData.ResultStandardDeviation, 0.0001); // Example value
     }
 
-    [Test]
-    [TestCase("Name1", -1, 20, 5)]
-    [TestCase("Name1", -1, -20, 5)]
-    [TestCase("Name1", 1, 20, -5)]
-    public void Create_ShouldThrowException_WhenNegativeValues(string name, double optimistic, double pessimistic,
-        double expected)
-    {
-        Assert.Throws<ArgumentException>(() =>
-        {
-            var task = TaskDataBuilder
-                .Create("TaskError", -1, 2, 3)
-                .AddAverageDays()
-                .Build();
-        });
-    }
 }

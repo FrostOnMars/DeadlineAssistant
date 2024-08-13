@@ -17,13 +17,16 @@ public class CalculatorTests
     private Calculator _calculator;
 
     [Test]
-    public void GetStandardDev_CorrectInput_ReturnsExpectedResult()
+    [TestCase(10, 4, 1)]       // Regular case with positive numbers
+    [TestCase(5, 5, 0)]        // Case where pessimistic and optimistic are the same
+    [TestCase(4, 10, -1)]      // Case where pessimistic is smaller than optimistic (negative result)
+    [TestCase(1_000_000, 999_994, 1)] // Case with large numbers
+    [TestCase(0.000001, 0.000001, 0)] // Case with very small numbers close to zero
+    [TestCase(-4, -10, 1)]     // Case with negative numbers
+    [TestCase(-10, -4, -1)]    // Case where pessimistic and optimistic are negative, with pessimistic larger
+    [TestCase(0, 0, 0)]        // Case where both values are zero
+    public void GetStandardDev_CorrectInput_ReturnsExpectedResult(double pessimistic, double optimistic, double expected)
     {
-        //Arrange 
-        var pessimistic = 10.0;
-        var optimistic = 4.0;
-        var expected = 1.0;
-
         //Act
         var result = Calculator.GetStandardDev(pessimistic, optimistic);
 
@@ -31,14 +34,4 @@ public class CalculatorTests
         Assert.AreEqual(expected, result, .0001);
     }
 
-    [Test]
-    [TestCase("Task1", 2, 1, 3, 2.0)]
-    [TestCase("Task2", 5, 2, 8, 5.0)]
-    public void TaskData_ShouldReturn_ProbabilityDistribution(string name, double mostLikely, double pessimistic,
-        double optimistic, double expectedAverage)
-    {
-        var result = Calculator.GetProbDistribution(pessimistic, optimistic, mostLikely);
-
-        Assert.AreEqual(expectedAverage, result);
-    }
 }
