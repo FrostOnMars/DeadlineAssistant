@@ -12,17 +12,25 @@ public class CalculatorTests
     public void Setup()
     {
         _calculator = new Calculator();
+        _taskData = new TaskData();
     }
 
     private Calculator _calculator;
+    private TaskData _taskData;
 
-    [Theory]
-    [TestCase(12, 1)]
-    public void StandardDeviation_ShouldEqual1_8(int pessimistic, int optimistic)
+    [Test]
+    public void GetStandardDev_CorrectInput_ReturnsExpectedResult()
     {
-        var result = Calculator.StandardDeviation(pessimistic, optimistic);
+        //Arrange 
+        var pessimistic = 10.0;
+        var optimistic = 4.0;
+        var expected = 1.0;
 
-        result.Should().Be(standard);
+        //Act
+        var result = Calculator.GetStandardDev(pessimistic, optimistic);
+
+        //Assert
+        Assert.AreEqual(expected, result, .0001);
     }
 
     [Test]
@@ -31,6 +39,6 @@ public class CalculatorTests
     public void TaskData_ShouldReturn_ProbabilityDistribution(string name, double mostLikely, double pessimistic,
         double optimistic, double expectedAverage)
     {
-        var result = Calculator.ProbabilityDistribution(pessimistic, optimistic, mostLikely);
+        var result = Calculator.GetProbDistribution(pessimistic, optimistic, mostLikely);
     }
 }

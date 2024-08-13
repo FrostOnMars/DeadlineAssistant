@@ -56,7 +56,7 @@ public class ConsoleStatements
                 var pessimistic = Convert.ToInt32(inputArray[2]);
 
                 var x = Calculator.ProbabilityDistribution(DateRange.longestDayTotal, pessimistic);
-                var y = -1 * Calculator.StandardDeviation(optimistic, pessimistic);
+                var y = -1 * Calculator.GetStandardDev(optimistic, pessimistic);
 
                 outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
             }

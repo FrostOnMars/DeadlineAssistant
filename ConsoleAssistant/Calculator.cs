@@ -14,7 +14,7 @@ public class Calculator
     #region Private Fields
 
     private static double _longestDayTotal;
-    private static int _mostLikely;
+    private static int _nominal;
     private static TaskData _taskData;
 
     #endregion Private Fields
@@ -23,65 +23,52 @@ public class Calculator
 
     //public static TaskData CalculateAll(TaskData taskData)
     //{
-    //    ProbabilityDistribution(_longestDayTotal, _mostLikely);
-    //    StandardDeviation(taskData.Pessimistic, taskData.Optimistic);
+    //    GetProbDistribution(_longestDayTotal, _nominal);
+    //    GetStandardDev(taskData.Pessimistic, taskData.Optimistic);
     //    return taskData;
     //}
 
-    public static double ProbabilityDistribution(double longestDayTotal, int mostLikely)
-    {
-        var averageDays = (longestDayTotal + 4 * mostLikely) / 6d;
-        return averageDays;
-    }
+    //public static double GetProbDistribution(double longestDayTotal, int mostLikely)
+    //{
+    //    var averageDays = (longestDayTotal + 4 * mostLikely) / 6d;
+    //    return averageDays;
+    //}
     public static double RoundAverageDays(double averageDays)
     {
         return Math.Round(averageDays, 0, MidpointRounding.AwayFromZero);
     }
 
-    //public static double ProbabilityDistribution(double pessimistic1, double optimistic1, double mostLikely1)
-    //{
-    //    var averageDays = (optimistic1 + 4 * mostLikely1 + pessimistic1) / 6d;
-    //    return averageDays;
-    //}
-
-    public static TaskData ProbabilityDistribution(TaskData taskData)
+    public static TaskData GetProbDistribution(TaskData taskData)
     {
         _taskData = taskData;
-        taskData.ResultAverageDays = (taskData.Pessimistic + 4 * taskData.MostLikely + taskData.Optimistic) / 6;
+        taskData.ResultCompletionTimeline = (taskData.Pessimistic + (4 * taskData.Nominal) + taskData.Optimistic) / 6;
         return taskData;
     }
-
-    public static double ProbabilityDistribution(double pessimistic, double optimistic)
+    // Method above uses TaskData typing. Why? Isn't the version below better?
+    public static double GetProbDistribution(double Pessimistic, double Nominal, double Optimistic)
     {
-        // uses Generics to handle different types of data and keep code DRY
-        var expectedTimeline = (pessimistic - optimistic) / 6;
-        return expectedTimeline;
+        return (Pessimistic + (4 * Nominal) + Optimistic) / 6;
     }
 
-    public static double StandardDeviation(double[] data)
-    {
-        if (data == null || data.Length == 0)
-            throw new ArgumentException("The data array must contain at least one element.");
+    //public static double GetProbDistribution(double pessimistic, double optimistic)
+    //{
+    //    // uses Generics to handle different types of data and keep code DRY
+    //    var expectedTimeline = (pessimistic - optimistic) / 6;
+    //    return expectedTimeline;
+    //}
 
-        // Step 1: Calculate the mean
-        var mean = data.Average();
 
-        // Step 2: Calculate the squared differences from the mean
-        var sumOfSquaresOfDifferences = data.Select(val => (val - mean) * (val - mean)).Sum();
-
-        // Step 3: Calculate the mean of these squared differences
-        var meanOfSquares = sumOfSquaresOfDifferences / data.Length;
-
-        // Step 4: Take the square root of this mean to get the standard deviation
-        return Math.Sqrt(meanOfSquares);
-    }
-
-    //public static TaskData StandardDeviation(TaskData taskCompletionData)
+    //public static TaskData GetStandardDev(TaskData taskCompletionData)
     //{
     //    taskCompletionData.ResultStandardDeviation =
     //        (taskCompletionData.Pessimistic - taskCompletionData.Optimistic) / 6;
     //    return taskCompletionData;
     //}
+    public static double GetStandardDev(double pessimistic, double optimistic)
+    {
+        var standardDeviation = (pessimistic - optimistic) / 6;
+        return standardDeviation;
+    }
 
     #endregion Public Methods
 }

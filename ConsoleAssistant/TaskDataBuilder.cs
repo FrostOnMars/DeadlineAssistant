@@ -12,9 +12,9 @@ public class TaskDataBuilder
 
     #region Private Constructors
 
-    private TaskDataBuilder(string name, double optimistic, double pessimistic, double expected)
+    private TaskDataBuilder(string name, double optimistic, double pessimistic, double nominal)
     {
-        _taskData = new TaskData(name, optimistic, pessimistic, expected);
+        _taskData = new TaskData(name, optimistic, pessimistic, nominal);
     }
 
     #endregion Private Constructors
@@ -29,25 +29,24 @@ public class TaskDataBuilder
 
     #region Public Methods
 
-    public static TaskDataBuilder Create(string name, double optimistic, double pessimistic, double expected)
+    public static TaskDataBuilder Create(string name, double optimistic, double pessimistic, double nominal)
     {
-        if (pessimistic < 0 || optimistic < 0 || expected < 0)
+        if (pessimistic < 0 || optimistic < 0 || nominal < 0)
             throw new ArgumentException("All values must be greater than 0.");
-        return new TaskDataBuilder(name, optimistic, pessimistic, expected);
+        return new TaskDataBuilder(name, optimistic, pessimistic, nominal);
     }
 
     public TaskDataBuilder AddAverageDays()
     {
-        // Assuming you've got some calculation here to determine the average days...
-        _taskData.ResultAverageDays =
-            Calculator.ProbabilityDistribution(_taskData.Pessimistic, _taskData.Optimistic, _taskData.MostLikely);
+        _taskData.ResultCompletionTimeline =
+            Calculator.GetProbDistribution(_taskData.Pessimistic, _taskData.Optimistic, _taskData.Nominal);
         return this;
     }
 
     public TaskDataBuilder AddStandardDeviation()
     {
         // Assuming you've got some calculation here to determine the standard deviation...
-        _taskData.ResultStandardDeviation = Calculator.StandardDeviation(_taskData.Pessimistic, _taskData.Optimistic);
+        _taskData.ResultStandardDeviation = Calculator.GetStandardDev(_taskData.Pessimistic, _taskData.Optimistic);
         return this;
     }
 

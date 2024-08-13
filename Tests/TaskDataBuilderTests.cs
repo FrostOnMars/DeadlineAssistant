@@ -31,7 +31,7 @@ internal class TaskDataBuilderTests
         _builder.AddStandardDeviation();
 
         // Assert
-        Assert.AreEqual(Calculator.StandardDeviation(_taskData.Pessimistic, _taskData.Optimistic),
+        Assert.AreEqual(Calculator.GetStandardDev(_taskData.Pessimistic, _taskData.Optimistic),
             _taskData.ResultStandardDeviation);
     }
 
