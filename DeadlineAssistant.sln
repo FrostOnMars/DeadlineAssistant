@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0DC80C1C-51E8-4DA0-8E71-3C5FE12113EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAssistant", "ConsoleAssistant\ConsoleAssistant.csproj", "{AAE0C48B-C8A2-4744-BCF6-AB323901898A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAssistant", "ConsoleAssistant\ConsoleAssistant.csproj", "{AAE0C48B-C8A2-4744-BCF6-AB323901898A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAssistant", "WpfAssistant\WpfAssistant.csproj", "{41D16E4F-7437-4DF5-8769-BB7904ED6AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfAssistant", "WpfAssistant\WpfAssistant.csproj", "{41D16E4F-7437-4DF5-8769-BB7904ED6AE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

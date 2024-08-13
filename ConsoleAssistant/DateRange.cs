@@ -1,4 +1,6 @@
-﻿public class DateRange
+﻿namespace ConsoleAssistant;
+
+public class DateRange
 {
     private static double _pessimistic;
     private static double _optimistic;

@@ -1,4 +1,6 @@
-﻿public class Calculator
+﻿namespace ConsoleAssistant;
+
+public class Calculator
 {
     private static int _mostLikely;
     private static TaskData _taskData;
@@ -40,17 +42,25 @@
         return taskData;
     }
 
-    public static int StandardDeviation(int pessimistic, int optimistic) 
+    public static T StandardDeviation<T>(T pessimistic, T optimistic) where T : struct
     {
-        var standardDeviation = (pessimistic - optimistic) / 6;
+        // uses Generics to handle different types of data and keep code DRY
+        dynamic pess = pessimistic;
+        dynamic opt = optimistic;
+        var standardDeviation = (pess - opt) / 6;
         return standardDeviation;
     }
+    //public static int StandardDeviation(int pessimistic, int optimistic)
+    //{
+    //    var standardDeviation = (pessimistic - optimistic) / 6;
+    //    return standardDeviation;
+    //}
 
-    public static double StandardDeviation(double pessimistic, double optimistic)
-    {
-        var standardDeviation = (pessimistic - optimistic) / 6;
-        return standardDeviation;
-    }
+    //public static double StandardDeviation(double pessimistic, double optimistic)
+    //{
+    //    var standardDeviation = (pessimistic - optimistic) / 6;
+    //    return standardDeviation;
+    //}
 
     public static TaskData StandardDeviation(TaskData taskCompletionData)
     {

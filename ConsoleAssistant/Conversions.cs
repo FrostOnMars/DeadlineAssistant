@@ -1,4 +1,6 @@
-﻿public class Conversions
+﻿namespace ConsoleAssistant;
+
+public class Conversions
 {
     private readonly TaskData _taskData;
 

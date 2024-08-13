@@ -1,4 +1,6 @@
-﻿public class ConsoleStatements
+﻿using ConsoleAssistant;
+
+public class ConsoleStatements
 {
     static string explainSummary = "Projects are best described with three estimated completion dates: \n\n" +
                                    "An optimistic estimate should only occur if all things line up correctly. \n" +

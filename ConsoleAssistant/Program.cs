@@ -1,10 +1,10 @@
-﻿using ConsoleAssistant;
+﻿namespace ConsoleAssistant;
 
 class Program
 {
-   
-    static void Main(string[] args) {
-        
+    private static void Main()
+    {
+
         ConsoleStatements.PostOpeningText();
 
         var myModel = TaskDataBuilder

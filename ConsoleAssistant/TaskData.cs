@@ -1,14 +1,35 @@
-﻿using System.Threading.Tasks;
-using Microsoft.VisualBasic.CompilerServices;
+﻿namespace ConsoleAssistant;
 
-public class TaskData {
+public class TaskData
+{
+    #region Private Fields
+
     private readonly Conversions _conversions;
+
+    #endregion Private Fields
+
+    #region Public Methods
+
+    public override string ToString()
+    {
+        return _conversions.ToString();
+    }
+
+    #endregion Public Methods
+
+    #region Public Properties
+
+    public double MostLikely { get; set; }
     public string Name { get; set; }
     public double Optimistic { get; set; }
-    public double MostLikely { get; set; }
     public double Pessimistic { get; set; }
     public double ResultAverageDays { get; set; }
     public double ResultStandardDeviation { get; set; }
+
+    #endregion Public Properties
+
+    #region Public Constructors
+
     public TaskData()
     {
         _conversions = new Conversions(this);
@@ -22,8 +43,6 @@ public class TaskData {
         MostLikely = expected;
         Name = name;
     }
-    public override string ToString()
-    {
-        return _conversions.ToString();
-    }
+
+    #endregion Public Constructors
 }

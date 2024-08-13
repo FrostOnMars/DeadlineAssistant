@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace WpfAssistant
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Future extensibility will include a way to display the results of the calculations in a WPF application.
     /// </summary>
     public partial class MainWindow : Window
     {
