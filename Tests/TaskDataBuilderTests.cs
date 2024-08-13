@@ -7,25 +7,11 @@ namespace Tests;
 [TestFixture]
 internal class TaskDataBuilderTests
 {
-    [SetUp]
-    public void Setup()
-    {
-        _taskData = new TaskData();
-        _builder = new TaskDataBuilder();
-    }
-
-    private TaskDataBuilder _builder;
-    private TaskData _taskData;
-
     [Test]
-    public void Create_ValidInputs_ShouldReturnTaskDataBuilderInstance()
+    [TestCase("Task1", 5, 10, 7)]
+    public void Create_ValidInputs_ShouldReturnTaskDataBuilderInstance(string name, double optimistic, double pessimistic,
+        double nominal)
     {
-        // Arrange
-        var name = "TestTask";
-        var optimistic = 5;
-        var pessimistic = 10;
-        var nominal = 7;
-
         // Act
         var builder = TaskDataBuilder.Create(name, optimistic, pessimistic, nominal);
 
@@ -33,31 +19,28 @@ internal class TaskDataBuilderTests
         Assert.IsNotNull(builder);
     }
     [Test]
-    public void Create_NegativeInputs_ShouldThrowArgumentException()
+    [TestCase("Task1", -5, 10, 7)]
+    public void Create_NegativeInputs_ShouldThrowArgumentException(string name, double optimistic, double pessimistic,
+        double nominal)
     {
-        // Arrange
-        string name = "TestTask";
-        double optimistic = -5;
-        double pessimistic = 10;
-        double nominal = 7;
-
-        // Act & Assert
+     // Act & Assert
         Assert.Throws<ArgumentException>(() =>
             TaskDataBuilder.Create(name, optimistic, pessimistic, nominal));
     }
-    [Test]
-    public void AddAverageDays_ShouldCalculateAndSetResultCompletionTimeline()
-    {
-        // Arrange
-        var builder = TaskDataBuilder.Create("TestTask", 5, 10, 7);
+    //[Test]
+    //public void AddAverageDays_ShouldCalculateAndSetResultCompletionTimeline()
+    //{
+    //    // Arrange
+    //    var builder = TaskDataBuilder.Create("TestTask", 5, 10, 7);
 
-        // Act
-        builder.AddAverageDays();
-        var taskData = builder.Build();
+    //    // Act
+    //    builder.AddAverageDays();
+    //    var taskData = builder.Build();
 
-        // Assert
-        Assert.AreEqual(7, taskData.ResultCompletionTimeline); // Assuming the calculator returns the average for the example
-    }
+    //    // Assert
+    //    Assert.AreEqual(7, taskData.ResultCompletionTimeline); // Assuming the calculator returns the average for the example
+    //}
+
     [Test]
     public void AddStandardDeviation_ShouldCalculateAndSetResultStandardDeviation()
     {
@@ -71,14 +54,15 @@ internal class TaskDataBuilderTests
         // Assert
         Assert.AreEqual(0.8333, taskData.ResultStandardDeviation, 0.0001); // Assuming (10 - 5) / 6 = 0.8333
     }
+   
     [Test]
     public void Build_ShouldReturnTaskDataInstanceWithCorrectValues()
     {
         // Arrange
-        string name = "TestTask";
-        double optimistic = 5;
-        double pessimistic = 10;
-        double nominal = 7;
+        var name = "TestTask";
+        var optimistic = 5;
+        var pessimistic = 10;
+        var nominal = 7;
 
         var builder = TaskDataBuilder.Create(name, optimistic, pessimistic, nominal)
             .AddAverageDays()

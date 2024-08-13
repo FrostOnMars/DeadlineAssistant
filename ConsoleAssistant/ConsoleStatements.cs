@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 
+
 namespace ConsoleAssistant;
 
 public class ConsoleStatements
 {
     #region Private Fields
+    private readonly TaskData _taskData;
 
     private static readonly string explainSummary =
         "Projects are best described with three estimated completion dates: \n\n" +
@@ -23,6 +25,11 @@ public class ConsoleStatements
     private static readonly string promptInput =
         "Please enter the optimistic, most likely, and pessimistic completion dates for your project, followed " +
         "by a comma. Input should look like this: 1, 5, 14";
+
+    public ConsoleStatements(TaskData taskData)
+    {
+        _taskData = taskData;
+    }
 
     #endregion Private Fields
 
@@ -51,14 +58,15 @@ public class ConsoleStatements
             }
 
             {
-                var optimistic = Convert.ToInt32(inputArray[0]);
-                var mostLikely = Convert.ToInt32(inputArray[1]);
-                var pessimistic = Convert.ToInt32(inputArray[2]);
+                var optimistic = Convert.ToDouble(inputArray[0]);
+                var nominal = Convert.ToDouble(inputArray[1]);
+                var pessimistic = Convert.ToDouble(inputArray[2]);
 
-                //var x = Calculator.GetProbDistribution(DateRange.longestDayTotal, pessimistic);
+                //TODO: why are we recalculating this? How do I use the result from TaskData instead?
+                var x = Calculator.GetProbDistribution(pessimistic, nominal, optimistic);
                 var y = -1 * Calculator.GetStandardDev(optimistic, pessimistic);
 
-                //outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
+                outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
             }
             break;
         }

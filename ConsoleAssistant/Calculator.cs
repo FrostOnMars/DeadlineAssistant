@@ -38,16 +38,17 @@ public class Calculator
         return Math.Round(averageDays, 0, MidpointRounding.AwayFromZero);
     }
 
+    //TODO: decide whether to route all Calculator methods through TaskData
     public static TaskData GetProbDistribution(TaskData taskData)
     {
         _taskData = taskData;
         taskData.ResultCompletionTimeline = (taskData.Pessimistic + (4 * taskData.Nominal) + taskData.Optimistic) / 6;
         return taskData;
     }
-    // Method above uses TaskData typing. Why? Isn't the version below better?
     public static double GetProbDistribution(double Pessimistic, double Nominal, double Optimistic)
     {
-        return (Pessimistic + (4 * Nominal) + Optimistic) / 6;
+        var ResultsCompletionTimeline = (Pessimistic + (4 * Nominal) + Optimistic) / 6;
+        return ResultsCompletionTimeline;
     }
 
     //public static double GetProbDistribution(double pessimistic, double optimistic)

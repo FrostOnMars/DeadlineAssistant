@@ -1,4 +1,6 @@
-﻿namespace ConsoleAssistant;
+﻿using System;
+
+namespace ConsoleAssistant;
 
 public class DateRange
 {

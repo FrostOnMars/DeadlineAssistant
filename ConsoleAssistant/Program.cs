@@ -26,10 +26,8 @@ internal class Program
 
         Console.WriteLine(mySecondModel.ToString());
 
-        ;
-
         ConsoleStatements.ReadInput();
-        //ConsoleStatements.ReturnResults();
+        ConsoleStatements.ReturnResults();
     }
 
     #endregion Private Methods

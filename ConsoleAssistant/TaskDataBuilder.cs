@@ -39,7 +39,7 @@ public class TaskDataBuilder
     public TaskDataBuilder AddAverageDays()
     {
         _taskData.ResultCompletionTimeline =
-            Calculator.GetProbDistribution(_taskData.Pessimistic, _taskData.Optimistic, _taskData.Nominal);
+            Calculator.GetProbDistribution(_taskData.Pessimistic, _taskData.Nominal, _taskData.Optimistic);
         return this;
     }
 
