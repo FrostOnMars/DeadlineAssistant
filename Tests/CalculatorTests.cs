@@ -12,11 +12,9 @@ public class CalculatorTests
     public void Setup()
     {
         _calculator = new Calculator();
-        _taskData = new TaskData();
     }
 
     private Calculator _calculator;
-    private TaskData _taskData;
 
     [Test]
     public void GetStandardDev_CorrectInput_ReturnsExpectedResult()
@@ -40,5 +38,7 @@ public class CalculatorTests
         double optimistic, double expectedAverage)
     {
         var result = Calculator.GetProbDistribution(pessimistic, optimistic, mostLikely);
+
+        Assert.AreEqual(expectedAverage, result);
     }
 }
