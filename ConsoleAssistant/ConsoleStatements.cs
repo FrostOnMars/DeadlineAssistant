@@ -4,10 +4,13 @@ using System.Linq;
 
 namespace ConsoleAssistant;
 
+// Note: This class used to take user input to calculate values. The task of providing numbers is 
+// currently taken over by TaskDataBuilder and TaskData. 
+
 public class ConsoleStatements
 {
     #region Private Fields
-    private readonly TaskData _taskData;
+    private static TaskData _taskData;
 
     private static readonly string explainSummary =
         "Projects are best described with three estimated completion dates: \n\n" +
@@ -58,15 +61,15 @@ public class ConsoleStatements
             }
 
             {
-                var optimistic = Convert.ToDouble(inputArray[0]);
-                var nominal = Convert.ToDouble(inputArray[1]);
-                var pessimistic = Convert.ToDouble(inputArray[2]);
+                //var optimistic = Convert.ToDouble(inputArray[0]);
+                //var nominal = Convert.ToDouble(inputArray[1]);
+                //var pessimistic = Convert.ToDouble(inputArray[2]);
 
-                //TODO: why are we recalculating this? How do I use the result from TaskData instead?
-                var x = Calculator.GetProbDistribution(pessimistic, nominal, optimistic);
-                var y = -1 * Calculator.GetStandardDev(optimistic, pessimistic);
+                ////TODO: why are we recalculating this? How do I use the result from TaskData instead?
+                //var x = _taskData.ResultCompletionTimeline;
+                //var y = -1 * _taskData.ResultStandardDeviation;
 
-                outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
+                //outputResult = $"Your project will most likely take you {x} days with a margin of error of {y} days.\n";
             }
             break;
         }

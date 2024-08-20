@@ -23,8 +23,7 @@ public class Conversions
 
     public string ToString()
     {
-        return $"{_taskData.Name} has a standard deviation of {ConvertToDayHour(_taskData.ResultStandardDeviation)} " +
-               $"and an average length of {ConvertToDayHour(_taskData.ResultStandardDeviation)}. ";
+        return $"{_taskData.Name} should take an average length of {ConvertToDayHour(_taskData.ResultStandardDeviation)} has a standard deviation of {ConvertToDayHour(_taskData.ResultStandardDeviation)}";
     }
 
     #endregion Public Methods

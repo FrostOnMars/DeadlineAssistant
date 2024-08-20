@@ -25,7 +25,6 @@ public class TaskData
     public double Pessimistic { get; set; }
     public double ResultCompletionTimeline { get; set; }
     public double ResultStandardDeviation { get; set; }
-    public double StandardDeviation { get; set; }
 
 
     #endregion Public Properties
